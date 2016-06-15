@@ -6,7 +6,7 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <meta name="description" content="{{app.description}}">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <title data-ng-bind="::pageTitle()">Task Manager</title>
+    <title data-ng-bind="::pageTitle()">Supplier</title>
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
     <!-- Bootstrap styles-->
     <link rel="stylesheet" href="app/css/bootstrap.css" data-ng-if="!app.layout.isRTL">
@@ -19,6 +19,18 @@
 </head>
 <body data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'aside-float': app.layout.isFloat, 'offsidebar-open': app.offsidebarOpen, 'aside-toggled': app.asideToggled}">
     <!--<div data-preloader></div>-->
+
+    <div ng-app="myModule" ng-controller="myController">
+    <input type="text" ng-model="user.firstName"/>
+    <div>Hello, {{user.firstName}}!</div>
+
+    <div ng-repeat="user in users | filter:user">
+         {{user.firstName}} {{user.lastName}} - Age: {{user.age}}
+    </div>
+
+    <button ng-click="changeFirstUsersFirstName()">Change Name</button>
+
+</div>
     <div data-ui-view="" data-autoscroll="false" class="wrapper">
 
         <div class="panel panel-default">
@@ -63,5 +75,36 @@
         <script type="text/javascript">
             app.initialize();
         </script>	
+
+    <script>
+var myModule = angular.module('myModule', []);
+
+myModule.controller('myController', function($scope, userRepository) {
+    $scope.users =
+        [
+          {firstName: 'Jane', lastName: 'Doe', age:29},
+          {firstName: 'John', lastName: 'Doe', age: 32}
+        ];
+
+    $scope.changeFirstUsersFirstName = function() {
+        $scope.users[0].firstName = 'Jill'
+    };
+
+    userRepository.getAllUsers().success(function(users) {$scope.users = users});
+
+});
+
+myModule.factory('userRepository', function($http) {
+   return {
+   getAllUsers: function() {
+      var url = "https://api.mongolab.com/api/1/databases/angularjs-intro/collections/users?apiKey=terrPcifZzn01_ImGsFOIZ96SwvSXgN9";
+return $http.get(url);
+   }
+};
+
+});
+
+
+    </script>
 </body>
 </html>
