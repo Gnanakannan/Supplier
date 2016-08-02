@@ -8355,7 +8355,7 @@ flot .legend .legendColorBox > div > div {
  ========================================================================== */
 /**
  * Custom form elements
- *    - Checkbox
+ *    - Checkbox 
  *    - Radios
  *    - Switch
  *    - Rounded inputs
@@ -11066,7 +11066,7 @@ body .jvectormap-zoomout {
   max-width: 100%;
   min-width: 100%;
 }
-/**
+/** 
  * Displays hidden content on hover. Add this class to the parent element.
  * Markup
  *   <div class="hover-visible">

@@ -46,15 +46,15 @@ module.exports = function (success, fail, service, action, args) {
     args = args || [];
 
     if (proxy) {
-
+        
         var callbackId = service + cordova.callbackId++;
-
+        
         if (typeof success === "function" || typeof fail === "function") {
             cordova.callbacks[callbackId] = {success: success, fail: fail};
         }
         try {
 
-
+            
 
             // callbackOptions param represents additional optional parameters command could pass back, like keepCallback or
             // custom callbackId, for example {callbackId: id, keepCallback: true, status: cordova.callbackStatus.JSON_EXCEPTION }
@@ -106,7 +106,7 @@ module.exports = function (success, fail, service, action, args) {
     } else {
 
         console.log("Error: exec proxy not found for :: " + service + " :: " + action);
-
+        
         if(typeof fail === "function" ) {
             fail("Missing Command Error");
         }
